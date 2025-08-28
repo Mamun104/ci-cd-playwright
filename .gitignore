@@ -44,6 +44,3 @@ bin/
 allure-results
 allure-report
 .idea
-gradle/wrapper
-gradlew
-gradlew.bat
