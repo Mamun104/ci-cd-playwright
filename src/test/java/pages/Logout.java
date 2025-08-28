@@ -17,13 +17,7 @@ public class Logout {
     }
 
     public void clickLogout() throws InterruptedException {
-        Thread.sleep(1000);
-        userCornerAvatar.waitFor(new Locator.WaitForOptions().setTimeout(1000));
         userCornerAvatar.click();
-
-
-        Thread.sleep(1000);
-        btnLogout.waitFor(new Locator.WaitForOptions().setTimeout(1000));
         btnLogout.click();
     }
 }

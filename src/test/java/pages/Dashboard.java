@@ -54,23 +54,19 @@ public class Dashboard {
     }
 
     public void clickEmployeeBtn() {
-        btnEmployee.waitFor();
         btnEmployee.click();
     }
 
     public void clickSupervisorBtn() {
-        btnSupervisor.waitFor();
         btnSupervisor.click();
     }
 
     public void clickEmploymentCloseBtn() {
-        btnEmploymentClose.waitFor();
         btnEmploymentClose.click();
     }
 
     public void assertEmployeeDashboard() {
         try {
-            smartOfficeDashboard.waitFor(new Locator.WaitForOptions().setTimeout(10000));
             Assert.assertTrue(smartOfficeDashboard.isVisible(), "Quick Links is not visible on the dashboard.");
             System.out.println("Quick Links is visible and asserted successfully.");
         } catch (AssertionError e) {
@@ -84,7 +80,6 @@ public class Dashboard {
 
     public void assertSupervisorDashboard() {
         try {
-            leaveOverview.waitFor(new Locator.WaitForOptions().setTimeout(10000));
             Assert.assertTrue(leaveOverview.isVisible(), "'Leave Overview' content is not displayed on Supervisor Dashboard.");
             System.out.println("'Leave Overview' content is displayed successfully on Supervisor Dashboard.");
         } catch (AssertionError e) {
