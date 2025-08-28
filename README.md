@@ -2,7 +2,7 @@
 
 ## Introduction
 This project provides a robust and scalable foundation for automating web application testing using **Playwright** with **Java**.
-It leverages Playwright for browser automation, TestNG/JUnit for test execution, and Gradle for build management.
+It leverages Playwright for browser automation, TestNG for test execution, and Gradle for build management.
 The framework is designed for maintainability, modularity, and readability by implementing the **Page Object Model (POM)**.
 Advanced HTML reports are supported via **Allure Reporting**, enabling easy analysis of test results.
 
