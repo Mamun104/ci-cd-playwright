@@ -1,0 +1,5 @@
+{
+  "PasswordLeakDetectionEnabled": false,
+  "PasswordManagerEnabled": false,
+  "SavingBrowserHistoryDisabled": true
+}
