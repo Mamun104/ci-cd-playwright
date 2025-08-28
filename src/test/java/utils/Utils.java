@@ -82,7 +82,7 @@ public class Utils {
         pages.Logout logout = new pages.Logout(page);
         pages.Login login = new pages.Login(page);
 
-        try { // In case user is already logged out
+        try {
             logout.clickLogout();
         } catch (Exception ignored) {}
 
