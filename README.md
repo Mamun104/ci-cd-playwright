@@ -122,13 +122,3 @@ public void beforeTest(Method method) {
 
 ---
 
-## Features
-
-* **Cross-browser testing**: Chrome, Firefox, WebKit
-* **Headless & Headed modes**
-* **Page Object Model (POM)** implementation
-* **Dynamic wait handling** (auto-wait built-in)
-* **Screenshots & video capture** on failure
-* **Gradle-based project setup** for easy dependency management
-
----
