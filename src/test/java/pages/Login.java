@@ -26,11 +26,13 @@ public class Login {
         String userName = (String) userObj.get("userName");
         String passwd = (String) userObj.get("password");
 
-
+        Thread.sleep(1000);
         page.fill(usernameInput, "");
         page.fill(usernameInput, userName);
+        Thread.sleep(1000);
         page.fill(passwordInput, "");
         page.fill(passwordInput, passwd);
+        Thread.sleep(1000);
         page.click(submitButton);
     }
 }
