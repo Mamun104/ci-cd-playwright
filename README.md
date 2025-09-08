@@ -34,30 +34,46 @@ Ensure the following tools are installed before running the framework:
 * IntelliJ IDEA / Eclipse (optional for development)
 
 ---
-
 ## Project Structure
 
 ```bash
-playwright-java-framework/
-├── src
-│   ├── main
-│   │   └── java/org/example
-│   │       └── utils                # Utility classes
-│   ├── test
-│   │   ├── java
-│   │   │   ├── pages               # Page Object classes (LoginPage.java)
-│   │   │   ├── setup               # Driver setup and Playwright initialization
-│   │   │   ├── tests               # Test classes (LoginTests.java)
-│   │   │   └── listeners           # Custom listeners for reporting
-│   │   └── resources
-│   │       └── testData            # Test data files
-├── build.gradle
-├── settings.gradle
-└── README.md
+PlayWriteWithJava/
+│
+├── .gradle/                        # Gradle-related files
+├── .idea/                          # IDE configuration files
+├── allure-report/                  # Generated Allure HTML reports
+├── allure-results/                 # Allure raw results (JSON, attachments)
+├── build/                          # Build artifacts
+├── gradle/                         # Gradle wrapper files
+├── src/
+│   ├── main/                       # Reserved for main application code (currently empty)
+│   └── test/
+│       ├── java/
+│       │   ├── pages/              # Page Object classes
+│       │   │   ├── Dashboard.java
+│       │   │   ├── Login.java
+│       │   │   └── Logout.java
+│       │   ├── setup/              # Setup and initialization classes
+│       │   │   └── Setup.java
+│       │   ├── testrunner/         # Test runner classes (TestNG/JUnit)
+│       │   │   └── LoginTestRunner.java
+│       │   └── utils/              # Utility/helper classes
+│       │       └── Utils.java
+│       └── resources/
+│           ├── screenshots/        # Screenshots captured during tests
+│           ├── suites/             # Test suite XML files
+│           ├── chrome_policies.json
+│           ├── config.properties   # Configuration files
+│           └── Users.json          # Test data
+│
+├── .gitignore                       # Git ignore rules
+├── build.gradle                     # Gradle build file
+├── gradlew                          # Gradle wrapper (Linux/Mac)
+├── gradlew.bat                      # Gradle wrapper (Windows)
+├── README.md                        # Project documentation
+└── settings.gradle                  # Gradle settings
+
 ```
-
----
-
 ## How to Run This Project
 
 ### 1. Clone the Repository
