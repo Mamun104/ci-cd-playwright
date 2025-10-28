@@ -39,3 +39,10 @@ jobs:
       # Step 5: Run Selenium Tests
       - name: Run Tests
         run: gradle clean test --daemon
+
+      # Step 6: Upload HTML Test Report
+      - name: Upload Test Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: selenium-test-report
+          path: build/reports/tests/test
