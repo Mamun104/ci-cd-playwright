@@ -32,7 +32,7 @@ jobs:
 
       # 4️⃣ Build & Run Tests
       - name: Build & Run Tests
-        run: gradle clean test --daemon
+        run: gradle clean test
 
       # 5️⃣ Upload HTML Test Report as artifact
       - name: Upload Test Report
