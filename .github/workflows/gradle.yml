@@ -42,7 +42,7 @@ jobs:
 
       # Step 6: Upload HTML Test Report
       - name: Upload Test Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: selenium-test-report
           path: build/reports/tests/test
