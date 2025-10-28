@@ -10,18 +10,18 @@ jobs:
     runs-on: windows-latest
     
     steps:
-      # 1️⃣ Checkout the repository
+      # Checkout the repository
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # 2️⃣ Set up Java 17
+      # Set up Java 17
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      # 3️⃣ Cache Gradle dependencies
+      # Cache Gradle dependencies
       - name: Cache Gradle
         uses: actions/cache@v3
         with:
@@ -30,18 +30,18 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      # 4️⃣ Build & Run Tests
+      # Build & Run Tests
       - name: Build & Run Tests
         run: gradle clean test
 
-      # 5️⃣ Upload HTML Test Report as artifact
+      # Upload HTML Test Report as artifact
       - name: Upload Test Report
         uses: actions/upload-artifact@v4
         with:
           name: selenium-test-report
-          path: build/reports/tests/test
+          path: build/reports/tests/test/packages
 
-      # 6️⃣ Send Test Report via Email
+      # Send Test Report via Email
       - name: Send HTML Report via Email
         uses: dawidd6/action-send-mail@v3
         with:
@@ -53,5 +53,5 @@ jobs:
           body: "Hi,\n\nPlease find the attached Selenium test report.\n\nRegards"
           to: mamunur.rashid@byslglobal.com
           from: ${{ secrets.EMAIL_USERNAME }}
-          attachments: build/reports/tests/test/index.html
+          attachments: build/reports/tests/test/packages/testrunner.html
           secure: true
