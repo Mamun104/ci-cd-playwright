@@ -3,13 +3,14 @@ name: CI/CD Pipeline for Selenium Project
 on:
   push:
     branches:
-      - main
+      - main  # Trigger pipeline on push to 'main'
 
 jobs:
   build:
     runs-on: windows-latest
 
     steps:
+
       # Step 1: Checkout repository
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -31,7 +32,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      # Step 4: Build project
+      # Step 4: Build the project
       - name: Build with Gradle
         run: gradle build
 
@@ -39,34 +40,61 @@ jobs:
       - name: Run Tests
         run: gradle clean test --daemon
 
-      # Step 6: Install Allure Commandline
-      - name: Install Allure
-        run: choco install allure -y
+      # Step 6: Install Allure CLI via npm
+      - name: Install Allure CLI
+        run: npm install -g allure-commandline --save-dev
 
-      # Step 7: Add Allure to PATH
-      - name: Add Allure to PATH
-        run: echo "::add-path::C:\\ProgramData\\chocolatey\\bin"
-
-      # Step 8: Generate Allure Report
+      # Step 7: Generate Allure Report
       - name: Generate Allure Report
-        run: allure generate build/allure-results --clean -o build/allure-report
+        run: |
+          allure generate build/allure-results --clean -o allure-report
+          dir allure-report
 
-      # Step 9: Send Allure HTML Report via Email
-      - name: Send Allure Report via Email
+      # Step 8: Move Allure Report to GitHub Pages folder
+      - name: Move Allure Report to Unique Folder
+        shell: bash
+        run: |
+          timestamp=$(date +%Y%m%d%H%M%S)
+          mkdir -p public/reports/$timestamp
+          mv allure-report/* public/reports/$timestamp/
+          echo "REPORT_LINK=https://mamun104.github.io/ci-cd-playwright/reports/$timestamp/index.html" >> $GITHUB_ENV
+
+      # Step 9: Verify directory structure
+      - name: List directory structure
+        shell: bash
+        run: ls -R public/reports
+
+      # Step 10: Deploy Allure Report to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: public
+          publish_branch: gh-pages
+          keep_files: true
+
+      # Step 11: Send Email with Allure Report Link
+      - name: Send Email with Allure Report Link
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
-          server_port: 465
-          username: ${{ secrets.EMAIL_USERNAME }}
-          password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: "Selenium Allure Test Report"
-          body: |
-            Hi,
-            
-            Please find the attached Selenium Allure test report.
-            
-            Regards
+          server_port: 587
+          secure: false
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          from: ${{ secrets.USERNAME }}
           to: mamunur.rashid@byslglobal.com
-          from: ${{ secrets.EMAIL_USERNAME }}
-          attachments: build/allure-report/index.html
-          secure: true
+          subject: "Submission of Automated Selenium Testing Report for Your Review"
+          body: |
+            Dear Sir,
+
+            I hope this message finds you well.
+
+            I am pleased to share that the Selenium testing has been successfully completed, and the report has been generated using Allure Reporter.
+            You may review the detailed findings at your convenience via the link below:
+
+            ${{ env.REPORT_LINK }}
+
+            Kindly let me know if you have any feedback or require further clarification on any specific areas.
+
+            Thank you for your time and consideration.
