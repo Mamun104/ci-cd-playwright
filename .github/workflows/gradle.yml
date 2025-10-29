@@ -39,17 +39,33 @@ jobs:
       - name: Run Tests
         run: gradle clean test --daemon
 
-      # Step 6: Send HTML Test Report via Email
-      - name: Send HTML Report via Email
+      # Step 6: Install Allure Commandline
+      - name: Install Allure
+        run: |
+          choco install allure -y
+          refreshenv
+
+      # Step 7: Generate Allure Report
+      - name: Generate Allure Report
+        run: |
+          allure generate build/allure-results --clean -o build/allure-report
+
+      # Step 8: Send Allure HTML Report via Email
+      - name: Send Allure Report via Email
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
           server_port: 465
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: "Selenium Test Report"
-          body: "Hi,\n\nPlease find the attached Selenium test report.\n\nRegards"
+          subject: "Selenium Allure Test Report"
+          body: |
+            Hi,
+            
+            Please find the attached Selenium Allure test report.
+            
+            Regards
           to: mamunur.rashid@byslglobal.com
           from: ${{ secrets.EMAIL_USERNAME }}
-          attachments: build/reports/tests/test/packages/testrunner.html
+          attachments: build/allure-report/index.html
           secure: true
