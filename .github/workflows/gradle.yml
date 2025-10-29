@@ -3,7 +3,7 @@ name: CI/CD Pipeline for Selenium Project
 on:
   push:
     branches:
-      - main  # Trigger pipeline on push to 'main'
+      - main
 
 jobs:
   build:
@@ -51,7 +51,7 @@ jobs:
           dir allure-report
 
       # Step 8: Move Allure Report to GitHub Pages folder
-      - name: Move Allure Report to Unique Folder
+      - name: Move Allure Report to Public Folder
         shell: bash
         run: |
           timestamp=$(date +%Y%m%d%H%M%S)
@@ -60,7 +60,7 @@ jobs:
           echo "REPORT_LINK=https://mamun104.github.io/ci-cd-playwright/reports/$timestamp/index.html" >> $GITHUB_ENV
 
       # Step 9: Verify directory structure
-      - name: List directory structure
+      - name: List public folder
         shell: bash
         run: ls -R public/reports
 
