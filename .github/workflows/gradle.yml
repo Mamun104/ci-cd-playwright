@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest   # Changed from windows-latest to linux
+    runs-on: ubuntu-latest   # Linux runner
 
     steps:
       # Checkout repository
@@ -30,11 +30,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      # Build & Run Tests
+      # Build & Run Tests using Gradle Wrapper
       - name: Build & Run Tests
-        run: ./gradle clean test
+        run: |
+          chmod +x ./gradlew
+          ./gradlew clean test
 
-      # Upload HTML Test Report to Server
+      # Upload Selenium HTML Report to Server
       - name: Upload HTML Test Report
         uses: appleboy/scp-action@v0.1.4
         with:
