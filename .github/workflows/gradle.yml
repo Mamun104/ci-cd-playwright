@@ -51,7 +51,7 @@ jobs:
           password: ${{ secrets.EMAIL_PASSWORD }}   # App password or actual password
           subject: "Selenium Test Report"
           body: "Hi,\n\nPlease find the attached Selenium test report.\n\nRegards"
-          to: mamunur.rashid@byslglobal.com
+          to: mamunur.rashid@byslglobal.com, tauhedul.amin@byslglobal.com
           from: ${{ secrets.EMAIL_USERNAME }}
           attachments: build/reports/tests/test/packages/testrunner.html
           secure: true
