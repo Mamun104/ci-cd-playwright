@@ -30,7 +30,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      # Install Playwright dependencies
+      # Install Playwright dependencies (minimal for Ubuntu 22.04+)
       - name: Install Playwright dependencies
         run: |
           sudo apt-get update
@@ -40,7 +40,6 @@ jobs:
             libxcomposite1 \
             libxdamage1 \
             libxrandr2 \
-            libasound2 \
             libpangocairo-1.0-0 \
             libcups2 \
             libgtk-3-0 \
@@ -57,7 +56,6 @@ jobs:
             gstreamer1.0-plugins-bad \
             gstreamer1.0-plugins-ugly \
             gstreamer1.0-libav \
-            libwoff2dec0 \
             flite
 
       # Build & Run Tests using Gradle Wrapper
