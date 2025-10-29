@@ -3,7 +3,7 @@ name: CI/CD Pipeline for Selenium Project
 on:
   push:
     branches:
-      - main  # Trigger on push to 'main'
+      - main
 
 jobs:
   build:
@@ -41,16 +41,17 @@ jobs:
 
       # Step 6: Install Allure Commandline
       - name: Install Allure
-        run: |
-          choco install allure -y
-          refreshenv
+        run: choco install allure -y
 
-      # Step 7: Generate Allure Report
+      # Step 7: Add Allure to PATH
+      - name: Add Allure to PATH
+        run: echo "::add-path::C:\\ProgramData\\chocolatey\\bin"
+
+      # Step 8: Generate Allure Report
       - name: Generate Allure Report
-        run: |
-          allure generate build/allure-results --clean -o build/allure-report
+        run: allure generate build/allure-results --clean -o build/allure-report
 
-      # Step 8: Send Allure HTML Report via Email
+      # Step 9: Send Allure HTML Report via Email
       - name: Send Allure Report via Email
         uses: dawidd6/action-send-mail@v3
         with:
