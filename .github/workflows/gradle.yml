@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest   # Changed from windows-latest to linux
 
     steps:
       # Checkout repository
@@ -25,21 +25,22 @@ jobs:
       - name: Cache Gradle
         uses: actions/cache@v3
         with:
-          path: C:\Users\runneradmin\.gradle\caches
+          path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
 
       # Build & Run Tests
       - name: Build & Run Tests
-        run: gradle clean test
+        run: ./gradlew clean test
 
-      # Upload Selenium HTML Report
-      - name: Upload Selenium HTML Report
+      # Upload HTML Test Report to Server
+      - name: Upload HTML Test Report
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           password: ${{ secrets.SERVER_PASS }}
           source: "build/reports/tests/test/packages/*"
-          target: "/var/www/smartpeople-automation-report/html-report/"
+          target: "/var/www/smartpeople-automation-report/"
+          port: 22
