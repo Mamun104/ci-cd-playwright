@@ -32,7 +32,7 @@ jobs:
 
       # Build & Run Tests
       - name: Build & Run Tests
-        run: ./gradlew clean test
+        run: ./gradle clean test
 
       # Upload HTML Test Report to Server
       - name: Upload HTML Test Report
